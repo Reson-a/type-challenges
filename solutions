@@ -61,3 +61,6 @@ type Chainable<R extends {} = {}> = {
   get(): R
 }
 
+15 - 最后一个元素
+type Last<T extends any[]> = T extends [...infer R, infer L] ? L : never
+
