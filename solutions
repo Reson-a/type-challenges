@@ -2,4 +2,40 @@
 type HelloWorld = string // expected to be a string
 
 4 - 实现 Pick
-type MyPick<T, K extends keyof T> = { [P in K]: T[P]}
+type MyPick<T, K extends keyof T> = { [P in K]: T[P] }
+
+7 - 实现 Readonly
+type MyReadonly<T> = { readonly [P in keyof T]: T[P] }
+
+11 - 元组转换为对象
+type TupleToObject<T extends readonly PropertyKey[]> = { [P in T[number]] : P }
+
+14 - 第一个元素
+type First<T extends any[]> = T['length'] extends 0 ? never : T[0]
+
+18 - 获取元组长度
+type Length<T extends readonly any[]> = T['length'] 
+
+43 - Exclude
+type MyExclude<T, U> = T extends U ? never : T
+
+189 - Awaited
+type Awaited<T extends Promise<any>> = T extends Promise<infer R> ? R :never
+
+268 - If
+type If<C extends Boolean, T, F> = C extends true ? T : F
+
+533 - Concat
+type Concat<T extends any[], U extends any[]> = [...T, ...U]
+
+898 - Includes
+type Includes<T extends readonly any[], U> = U extends T[keyof T] ? true : false
+
+3057 - Push
+type Push<T extends any[], U> = [...T, U]
+
+3060 - Unshift
+type Unshift<T extends any[], U> = [U, ...T]
+
+3312 - Parameters
+type MyParameters<T extends (...args: any[]) => any> = T extends (...args: infer R) => any ? R : never
