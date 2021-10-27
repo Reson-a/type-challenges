@@ -39,3 +39,18 @@ type Unshift<T extends any[], U> = [U, ...T]
 
 3312 - Parameters
 type MyParameters<T extends (...args: any[]) => any> = T extends (...args: infer R) => any ? R : never
+
+2 - 获取函数返回类型
+type MyReturnType<T extends (...args: any[]) => any> = T extends (...args: any[]) => infer R ? R : never
+
+3 - 实现 Omit
+type MyOmit<T, K extends keyof T> = { [P in keyof T as P extends K ? never: P]: T[P] }
+
+8 - Readonly 2
+type MyReadonly2<T, K extends keyof T = keyof T> = { [P in Exclude<keyof T, K>]: T[P] } & { readonly [P in K]: T[P] }
+
+9 - 深度 Readonly
+type DeepReadonly<T> = { readonly [P in keyof T]: keyof T[P] extends never ? T[P] : DeepReadonly<T[P]> }
+
+10 - 元组转合集
+type TupleToUnion<T extends any[]> = T[number]
