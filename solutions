@@ -64,3 +64,26 @@ type Chainable<R extends {} = {}> = {
 15 - 最后一个元素
 type Last<T extends any[]> = T extends [...infer R, infer L] ? L : never
 
+16 - 出堆
+type Pop<T extends any[]> = T extends [...infer R, infer L] ? R : never
+
+20 - Promise.all
+declare function PromiseAll<T extends any[]>(values: readonly [...T]): Promise<{ [P in keyof T]: T[P] extends Promise<infer R> ? R : T[P] }>
+
+62 - Type Lookup
+type LookUp<U extends { type: any }, T extends U['type']> = U extends { type: T } ? U : never
+
+106 - Trim Left
+type TrimLeft<S extends string> = S extends `${' ' | '\n' | '\r' | '\t'}${infer R}` ? TrimLeft<R> : S
+
+108 - Trim
+type Trim<S extends string> = S extends `${' ' | '\r' | '\n' | '\t'}${infer R}` | `${infer R}${' ' | '\r' | '\n' | '\t'}` ? Trim<R> : S
+
+110 - Capitalize
+type Capitalize<S extends string> = S extends `${infer L}${infer R}` ? `${Uppercase<L>}${R}` : S
+
+116 - Replace
+type Replace<S extends string, From extends string, To extends string> = S extends `${infer L}${From}${infer R}` ? `${L}${From extends '' ? '' : To}${R}` : S
+
+119 - ReplaceAll
+type ReplaceAll<S extends string, From extends string, To extends string> = S extends `${infer L}${From}${infer R}` ? `${L}${From extends '' ? '' : To}${ReplaceAll<R, From, To>}` : S
