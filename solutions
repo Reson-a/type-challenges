@@ -96,3 +96,9 @@ type Permutation<T, K = T> = [T] extends [never] ? [] : K extends K ? [K, ...Per
 
 298・Length of String
 ype LengthOfString<S extends string, T extends any[] = []> = S extends `${infer L}${infer R}` ? LengthOfString<R, [...T, L]> : T['length']
+
+459 - Flatten
+type Flatten<T extends any[]> = T extends [infer F, ...infer R] ? [...F extends any[] ? Flatten<F> : [F], ...Flatten<R>] : []
+
+527 - Append to object
+type AppendToObject<T, U extends PropertyKey, V> = { [K in (keyof T | U)]: K extends keyof T ? T[K] : V }
