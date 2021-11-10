@@ -102,3 +102,15 @@ type Flatten<T extends any[]> = T extends [infer F, ...infer R] ? [...F extends 
 
 527 - Append to object
 type AppendToObject<T, U extends PropertyKey, V> = { [K in (keyof T | U)]: K extends keyof T ? T[K] : V }
+
+529 - Absolute
+type Absolute<T extends number | string | bigint> = `${T}` extends `-${infer F}` ? `${F}` : `${T}`
+
+531 - String to Union
+type StringToUnion<T extends string, A extends any[] = []> = T extends `${infer F}${infer R}` ? StringToUnion<R, [F, ...A]> : A[number]
+
+599 - Merge
+type Merge<F, S> = { [K in (keyof F | keyof S)]: K extends keyof S ? S[K] : K extends keyof F ? F[K] : never };
+
+610 - CamelCase
+type CamelCase<S extends string> = S extends `${infer A}-${infer B}${infer C}` ? B extends Uppercase<B> ? `${A}-${CamelCase<`${B}${C}`>}` : `${A}${Uppercase<B>}${CamelCase<C>}` : S;
